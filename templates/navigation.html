@@ -1,0 +1,113 @@
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+{% if user.is_authenticated %}
+    <header class="header">
+        <a class="header__booking" href="{% url 'tables:tables-list' %}">Забронировать столик</a>
+        <a class="name_link" href="{% url 'dishes:dishes-list' %}"><h1  class="header__rest_name" >Ресторан сына маминой подруги</h1></a>
+        <a class="header__avatar" href="#userOpen">
+            <img {% if user.avatar %} src="{{ user.avatar.url }}"
+                 {% else %} src="/media/static/images/user.svg"
+                 {% endif %} alt="avatar" class="header__avatar__img" height="50px">
+        </a>
+      </header>
+    {% else %}
+       <header class="header">
+        <a class="header__booking" onclick="alert('Для брони необходимо зарегистрироваться.')">Бронь</a>
+           <a href="{% url 'dishes:dishes-list' %}"><h1  class="header__rest_name" style="font-style:italic" >Ресторан сына маминой подруги</h1></a>
+        <a class="header__login" href="{% url 'account_login' %}#loginOpen">Войти</a>
+      </header>
+    {% endif %}
+      <div id="userOpen" class="booking_window" >
+        <div class="booking_window__container">
+          <a class="close" href="{% url 'dishes:dishes-list' %}">&#x2715;</a>
+          <div class="modal_window">
+            <h2 class="modal_window__header">Аккаунт {{ user.username }}</h2>
+            <img {% if user.avatar %} src="{{ user.avatar.url }}"
+                 {% else %} src="/media/static/images/user.svg"
+                 {% endif %} alt="avatar" class="modal_window__avatar__img">
+            <p>Почта: {{ user.email }}</p>
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
+            <p>Телефон: {{ user.phone_number }}</p>
+          {% if user.is_authenticated %}
+            <a class="modal_window__avatar__edit" href="{% url 'users:edit' user.id %}">Изменить</a>
+          {% endif %}
+            <form method="post" action="{% url 'account_logout' %}">
+              {% csrf_token %}
+              <input required type="submit" value="Выйти" class="modal_window__button exit">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="bookingOpen" class="booking_window" >
+        <div class="booking_window__container">
+          <a class="close" href="{% url 'dishes:dishes-list' %}">&#x2715;</a>
+          <div class="modal_window">
+            <h2 class="modal_window__header">Бронь стола</h2>
+            <form action=".">
+              {% for table in tables %}
+                {% include 'tables/detail.html' %}
+              {% endfor %}
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="loginOpen" class="login_window">
+        <div class="login_window__container">
+          <a class="close" href="{% url 'dishes:dishes-list' %}">&#x2715;</a>
+          <div class="modal_window">
+            <h2 class="modal_window__header">Вход</h2>
+            {% get_providers as socialaccount_providers %}
+            <form class="modal_window__login" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              <p class="modal_window__mail">
+                <input required name="login" type="email" id="login_email" class="modal_window__input" placeholder="E-mail">
+                <label for="login_email" class="modal_window__mail__label">E-mail</label>
+              </p>
+              <p class="modal_window__password">
+                <input required name="password" type="password" id="login_password" class="modal_window__input" placeholder="Пароль">
+                <label for="login_password" class="modal_window__password__label">Пароль</label>
+              </p>
+              {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <input type="submit" value="Войти" class="modal_window__button">
+              <p class="modal_window__password__non_acc">Нет аккаунта?
+                <a class="modal_window__reg" href="{% url 'account_signup'%}#regOpen">Зарегистрироваться</a>
+              </p>
+            </form>
+            {% csrf_token%}
+          </div>
+        </div>
+      </div>
+      <div id="regOpen" class="reg_window">
+        <div class="reg_window__container">
+          <a class="close" href="{% url 'dishes:dishes-list' %}">&#x2715;</a>
+          <div class="modal_window">
+          <h2 class="modal_window__header">Регистрация</h2>
+          <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            <p class="modal_window__mail">
+              <input required name="email" type="email" id="login_email" class="modal_window__input" placeholder="E-mail">
+              <label for="login_email" class="modal_window__mail__label">E-mail</label>
+            </p>
+            <p class="modal_window__password">
+              <input required name="password1" type="password" id="login_password" class="modal_window__input" placeholder="Пароль">
+              <label for="login_password" class="modal_window__password__label">Пароль</label>
+            </p>
+            <p class="modal_window__password">
+              <input required name="password2" type="password" id="login_password2" class="modal_window__input" placeholder="Пароль">
+              <label for="login_password2" class="modal_window__password__label">Повторите пароль</label>
+            </p>
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <input type="submit" value="Зарегистрироваться" class="modal_window__button">
+          </form>
+          {% csrf_token %}
+          </div>
+        </div>
+
+      </div>
+

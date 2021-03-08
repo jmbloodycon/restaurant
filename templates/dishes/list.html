@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+<style>
+    .dishes {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+</style>
+    <h1 class="title">Меню</h1>
+    <div class="dishes">
+        {% for dish in dishes %}
+            {% include 'dishes/short_dish.html' %}
+        {% endfor %}
+    </div>

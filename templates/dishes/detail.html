@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <article>
+    <div class="dish">
+    <header>
+        <h1>{{ dish.name }}</h1>
+    </header>
+    <p>{{dish.description}}</p>
+    <img src="{{ dish.photo.url }}" height="240" class="center-block" alt="{{ dish.name }}">
+    </div>
+    </article>
+{% endblock %}

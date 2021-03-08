@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+#  db:
+#    image: mysql:5.7
+#    ports:
+#      - 3306:3306
+#    environment:
+#      MYSQL_DATABASE: 'db_django'
+#      MYSQL_USER: 'root'
+#      MYSQL_PASSWORD: 'password'
+#      MYSQL_ROOT_PASSWORD: 'password'
+#    restart: always
+#    volumes:
+#      - ./db_django:/var/lib/mysql
+
+  postgres:
+    image: mdillon/postgis:10
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+#  serv:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8000:80"
+#    volumes:
+#      - ./:/app
+#    command: /app/manage.py runserver 0.0.0.0:80

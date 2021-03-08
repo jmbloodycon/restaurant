@@ -1,0 +1,29 @@
+<style>
+    .table {
+        background-color: rgb(161, 200, 207, 0.7);
+        margin: 10px;
+        padding: 10px;
+        height: 200px;
+        border-bottom-color: black;
+        text-align: center;
+    }
+</style>
+{% block content %}
+    <article>
+    <div class="table">
+        <header>
+        <h1>Стол {{ table.number }}</h1>
+        </header>
+
+        <p>Количество человек: {{table.capacity}}</p>
+        {% if not table.is_booked %}
+            <form method="post">
+                <p><button class="modal_window__button" onclick="alert('Стол зарезервирован!')" formaction="{% url 'reservations:reservation' table.id  %}">Забронировать</button></p>
+                {% csrf_token %}
+            </form>
+        {% else %}
+            <font color="red" size="4">Столик забронирован</font>
+        {% endif %}
+    </div>
+    </article>
+{% endblock %}

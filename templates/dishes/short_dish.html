@@ -1,0 +1,28 @@
+<style>
+    .dish {
+        background-color: rgb(103, 151, 195, 0.5);
+        margin: 10px;
+        padding: 10px;
+        height: 500px;
+        text-align: center;
+    }
+    .dish-img {
+        transition: 1s;
+    }
+    .dish-img:hover {
+        transform: scale(1.15);
+   }
+</style>
+
+{% block content %}
+    <article>
+    <div class="dish">
+        <header>
+        <h1>{{ dish.name }}</h1>
+        </header>
+
+        <p>{{dish.description}}</p>
+        <img src="{{ dish.photo.url }}" height="240" class="dish-img" >
+    </div>
+    </article>
+{% endblock %}

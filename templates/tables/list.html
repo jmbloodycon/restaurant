@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+    .tables {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<h1 class="title">Выбор стола</h1>
+    <div class="tables">
+      {% for table in tables %}
+        {% include 'tables/detail.html' %}
+      {% endfor %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load account socialaccount %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+    <style>
+        .field {
+            padding-top: 12px;
+        }
+    </style>
+        <h2 class="">Редактирование профиля</h2>
+        <form action="." method="post" enctype="multipart/form-data">
+            {% for attr in form %}
+                {% if attr.label != "Password"  %}
+                    <p class="field">{{  attr.label }}: {{ attr }}</p>
+                {% endif %}
+            {% endfor %}
+            <p><button class="modal_window__button" type="submit">Сохранить</button></p>
+            {% csrf_token %}
+        </form>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en,ru">
+  <head>
+      <link rel="shortcut icon" type="image/png" href="/media/static/images/favicon.ico"/>
+    <meta charset="UTF-8">
+    <title>Ресторан сына маминой подруги</title>
+    <link rel="stylesheet" href="/media/static/css/index.css">
+    <script src="/media/static/js/index.js"></script>
+  </head>
+
+
+    {% block extra_css %}{% endblock %}
+
+    {% block extra_js %}{% endblock %}
+  <body>
+    {% include 'navigation.html' %}
+    <header class="main__header">
+
+<style>
+    .dishes {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+</style>
+
+{% block content %}
+    <h1 class="title">Меню</h1>
+    <div class="dishes">
+        {% for dish in dishes %}
+            {% include 'dishes/short_dish.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+    </header>
+  </body>
+</html>

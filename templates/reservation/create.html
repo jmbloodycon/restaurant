@@ -1,0 +1,17 @@
+{#{% extends 'base.html' %}#}
+{#{% load i18n %}#}
+{##}
+{#{% block content %}#}
+{#    <article>#}
+{#        <form action="." method="post" enctype="multipart/form-data">#}
+{#    {% for attr in form %}#}
+{#        {% if attr.label != "Password"  %}#}
+{#            <p>{{  attr.label }}: {{ attr }}</p>#}
+{#        {% endif %}#}
+{#          {% endfor %}#}
+{##}
+{#        <p><button class="btn" type="submit">Save changes</button></p>#}
+{#    {% csrf_token %}#}
+{#    </form>#}
+{#    </article>#}
+{#{% endblock %}#}
